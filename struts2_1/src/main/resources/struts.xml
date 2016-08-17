@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<package name="struts-base" extends="struts-default">
+		<!-- 自定义结果视图 -->
+		<result-types>
+			<result-type name="code" class="gz.dyl.struts2_1.result.ValidateCodeResult"></result-type>
+		</result-types>
+	
+		<!-- 若没有找到指定的action，将执行以下配置的默认action -->
+		<default-action-ref name="defaultAction"></default-action-ref>
+		
+		<!-- 配置全局视图，在指定action中没有找到对应视图时在以下全局视图中查找 -->
+		<global-results>
+			<result name="error">/WEB-INF/pages/error.jsp</result>
+			<result name="exception">/WEB-INF/pages/exception.jsp</result>
+		</global-results>
+		
+		<!-- 配置全局异常映射 -->
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		
+		<action name="defaultAction">
+			<result>/WEB-INF/pages/welcome.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p1" extends="struts-base" namespace="/">
+		<action name="hello" class="gz.dyl.struts2_1.web.HelloAction" method="sayHello">
+			<result name="success">/WEB-INF/pages/success.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p2" extends="struts-base" namespace="/person">
+		<!-- 通配符的使用 -->
+		<action name="p_*" class="gz.dyl.struts2_1.web.PersonAction" method="{1}">
+			<result>/WEB-INF/pages/user/{1}.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p3" extends="struts-base" namespace="/">
+		<action name="validateCode">
+			<result type="code"></result>
+		</action>
+	</package>
+
+</struts>
