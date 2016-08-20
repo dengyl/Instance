@@ -23,9 +23,9 @@
 		</global-results>
 		
 		<!-- 配置全局异常映射 -->
-		<global-exception-mappings>
+		<!-- <global-exception-mappings>
 			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
-		</global-exception-mappings>
+		</global-exception-mappings> -->
 		
 		<action name="defaultAction">
 			<result>/WEB-INF/pages/welcome.jsp</result>
@@ -41,13 +41,24 @@
 	<package name="p2" extends="struts-base" namespace="/person">
 		<!-- 通配符的使用 -->
 		<action name="p_*" class="gz.dyl.struts2_1.web.PersonAction" method="{1}">
-			<result>/WEB-INF/pages/user/{1}.jsp</result>
+			<result>/WEB-INF/pages/person/{1}.jsp</result>
 		</action>
 	</package>
 	
 	<package name="p3" extends="struts-base" namespace="/">
 		<action name="validateCode">
 			<result type="code"></result>
+		</action>
+	</package>
+	
+	<package name="p4" extends="struts-base" namespace="/student">
+		<action name="s_toadd" class="gz.dyl.struts2_1.web.StudentAction" method="toAdd">
+			<result name="toadd">/WEB-INF/pages/student/add.jsp</result>
+		</action>
+	
+		<action name="s_add" class="gz.dyl.struts2_1.web.StudentAction" method="add">
+			<result>/WEB-INF/pages/success.jsp</result>
+			<result name="input">/WEB-INF/pages/student/add.jsp</result>
 		</action>
 	</package>
 
