@@ -6,18 +6,34 @@
 <struts>
 
 	<constant name="struts.devMode" value="true"></constant>
+	<!-- struts的国际化配置 -->
+	<constant name="struts.custom.i18n.resources" value="gz.dyl.struts2_1.resource.message"></constant>
 	
 	<package name="struts-base" extends="struts-default">
-		<!-- 自定义结果视图 -->
+		<!-- 自定义结果视图声明 -->
 		<result-types>
 			<result-type name="code" class="gz.dyl.struts2_1.result.ValidateCodeResult"></result-type>
 		</result-types>
+		
+		<!-- 自定义拦截器声明 -->
+		<interceptors>
+			<interceptor name="loginInterceptor" class="gz.dyl.struts2_1.interceptor.LoginInterceptor"></interceptor>
+			
+			<interceptor-stack name="myDefaultStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="myDefaultStack"></default-interceptor-ref>
 	
 		<!-- 若没有找到指定的action，将执行以下配置的默认action -->
 		<default-action-ref name="defaultAction"></default-action-ref>
 		
 		<!-- 配置全局视图，在指定action中没有找到对应视图时在以下全局视图中查找 -->
 		<global-results>
+			<result name="tologin">/WEB-INF/pages/login.jsp</result>
 			<result name="error">/WEB-INF/pages/error.jsp</result>
 			<result name="exception">/WEB-INF/pages/exception.jsp</result>
 		</global-results>
@@ -59,6 +75,21 @@
 		<action name="s_add" class="gz.dyl.struts2_1.web.StudentAction" method="add">
 			<result>/WEB-INF/pages/success.jsp</result>
 			<result name="input">/WEB-INF/pages/student/add.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p5" extends="struts-base" namespace="/">
+		<action name="l_tologin" class="gz.dyl.struts2_1.web.LoginAction" method="toLogin">
+			<interceptor-ref name="myDefaultStack">
+				<param name="loginInterceptor.excludeMethods">toLogin</param>
+			</interceptor-ref>
+		</action>
+		
+		<action name="l_login" class="gz.dyl.struts2_1.web.LoginAction" method="login">
+			<interceptor-ref name="myDefaultStack">
+				<param name="loginInterceptor.excludeMethods">login</param>
+			</interceptor-ref>
+			<result type="redirectAction">defaultAction</result>
 		</action>
 	</package>
 
