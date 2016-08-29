@@ -3,9 +3,12 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
-<struts>
+<struts> 
 
 	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<!-- 配置上传文件限制大小 -->
+	<!-- <constant name="struts.multipart.maxSize" value="5242880"></constant> -->
 	<!-- struts的国际化配置 -->
 	<constant name="struts.custom.i18n.resources" value="gz.dyl.struts2_1.resource.message"></constant>
 	
@@ -90,6 +93,39 @@
 				<param name="loginInterceptor.excludeMethods">login</param>
 			</interceptor-ref>
 			<result type="redirectAction">defaultAction</result>
+		</action>
+	</package>
+	
+	<package name="p6" extends="struts-base" namespace="/file">
+		<action name="f_toupload" class="gz.dyl.struts2_1.web.UploadAction" method="toUpload">
+			<result>/WEB-INF/pages/upload.jsp</result>
+		</action>
+		
+		<action name="f_upload" class="gz.dyl.struts2_1.web.UploadAction" method="upload">
+			<interceptor-ref name="myDefaultStack">
+				<!-- 配置上传文件支持类型，若有多个用逗号隔开，若allowedExtensions和allowedTypes同时配置取交集类型允许上传 -->
+				<!-- <param name="fileUpload.allowedExtensions">txt</param>
+				<param name="fileUpload.allowedTypes">image/png,text/plain</param> -->
+			</interceptor-ref>
+			<result>/WEB-INF/pages/success.jsp</result>
+			<result name="input">/WEB-INF/pages/upload.jsp</result>
+		</action>
+		
+		<action name="f_tomultiupload" class="gz.dyl.struts2_1.web.MultiUploadAction" method="toMultiUpload">
+			<result>/WEB-INF/pages/multiupload.jsp</result>
+		</action>
+		
+		<action name="f_multiupload" class="gz.dyl.struts2_1.web.MultiUploadAction" method="multiUpload">
+			<result>/WEB-INF/pages/success.jsp</result>
+			<result name="input">/WEB-INF/pages/multiupload.jsp</result>
+		</action>
+		
+		<action name="f_download" class="gz.dyl.struts2_1.web.DownloadAction" method="download">
+			<result type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;filename=${@java.net.URLEncoder@encode(filename, "UTF-8")}</param>
+			</result>
 		</action>
 	</package>
 
