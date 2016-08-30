@@ -124,8 +124,14 @@
 			<result type="stream">
 				<param name="inputName">inputStream</param>
 				<param name="contentType">application/octet-stream</param>
-				<param name="contentDisposition">attachment;filename=${@java.net.URLEncoder@encode(filename, "UTF-8")}</param>
+				<param name="contentDisposition">attachment;filename=${@java.net.URLEncoder@encode(filename,"UTF-8")}</param>
 			</result>
+		</action>
+	</package>
+	
+	<package name="p7" extends="struts-base" namespace="/">
+		<action name="ognl">
+			<result>/WEB-INF/pages/ognl.jsp</result>
 		</action>
 	</package>
 

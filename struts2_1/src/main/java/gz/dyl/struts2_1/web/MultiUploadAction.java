@@ -4,7 +4,6 @@ import java.io.File;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
