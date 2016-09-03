@@ -14,7 +14,20 @@ public class Student implements Serializable {
 	private String name;
 	private Integer age;
 	private Date birthday;
+	private boolean married;
+	private String hobby;
+	private String city;
+	private String remark;
 	
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Student(String name, Integer age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
 	public String getName() {
 		return name;
 	}
@@ -33,9 +46,34 @@ public class Student implements Serializable {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	public boolean isMarried() {
+		return married;
+	}
+	public void setMarried(boolean married) {
+		this.married = married;
+	}
+	public String getHobby() {
+		return hobby;
+	}
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	@Override
 	public String toString() {
-		return "Student [name=" + name + ", age=" + age + ", birthday=" + birthday + "]";
+		return "Student [name=" + name + ", age=" + age + ", birthday=" + birthday + ", married=" + married + ", hobby="
+				+ hobby + ", city=" + city + ", remark=" + remark + "]";
 	}
 
 }

@@ -7,6 +7,7 @@
 
 	<constant name="struts.devMode" value="true"></constant>
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<!-- <constant name="struts.ui.theme" value="simple"></constant> -->
 	<!-- 配置上传文件限制大小 -->
 	<!-- <constant name="struts.multipart.maxSize" value="5242880"></constant> -->
 	<!-- struts的国际化配置 -->
@@ -132,6 +133,31 @@
 	<package name="p7" extends="struts-base" namespace="/">
 		<action name="ognl">
 			<result>/WEB-INF/pages/ognl.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p8" extends="struts-base" namespace="/">
+		<action name="context" class="gz.dyl.struts2_1.web.ActionContextDemoAction">
+			<result>/WEB-INF/pages/context.jsp</result>
+		</action>
+		<action name="stack" class="gz.dyl.struts2_1.web.ValueStackDemoAction">
+			<result>/WEB-INF/pages/stack.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p9" extends="struts-base" namespace="/">
+		<action name="tag" class="gz.dyl.struts2_1.web.TagDemoAction">
+			<result>/WEB-INF/pages/tag.jsp</result>
+		</action>
+		
+		<action name="toform" class="gz.dyl.struts2_1.web.FormDemoAction" method="toForm">
+			<result name="toform">/WEB-INF/pages/form.jsp</result>
+		</action>
+		<action name="form" class="gz.dyl.struts2_1.web.FormDemoAction" method="form">
+			<interceptor-ref name="myDefaultStack"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result>/WEB-INF/pages/success.jsp</result>
+			<result name="invalid.token">/WEB-INF/pages/resubmit.jsp</result>
 		</action>
 	</package>
 
