@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+   
+<hibernate-mapping package="gz.dyl.hibernate_1.entity">
+
+	<class name="Commodity" table="t_commodity">
+		<id name="id" column="ID" length="64">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="name" column="NAME" length="100"></property>
+		
+		<!-- 多对多映射配置 -->
+		<set name="orders" table="t_order_commodity" inverse="false">
+			<key column="COMMODITY_ID"></key>
+			<many-to-many class="Order" column="ORDER_ID"></many-to-many>
+		</set>
+		
+	</class>
+
+</hibernate-mapping>

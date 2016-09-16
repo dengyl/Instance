@@ -26,6 +26,8 @@
 		<mapping resource="gz/dyl/hibernate_1/entity/Student.hbm.xml"/>
 		<mapping resource="gz/dyl/hibernate_1/entity/Dept.hbm.xml"/>
 		<mapping resource="gz/dyl/hibernate_1/entity/Emp.hbm.xml"/>
+		<mapping resource="gz/dyl/hibernate_1/entity/Order.hbm.xml"/>
+		<mapping resource="gz/dyl/hibernate_1/entity/Commodity.hbm.xml"/>
 		
 	</session-factory>
 	
