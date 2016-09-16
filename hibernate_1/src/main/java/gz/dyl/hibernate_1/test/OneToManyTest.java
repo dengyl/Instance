@@ -53,7 +53,7 @@ public class OneToManyTest {
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Dept dept = (Dept) session.get(Dept.class, "402880e55731840b015731840c370000");
+		Dept dept = (Dept) session.get(Dept.class, "402880e5573295cd01573295ce310000");
 		
 		session.delete(dept);
 		
@@ -96,7 +96,7 @@ public class OneToManyTest {
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Dept dept = (Dept) session.get(Dept.class, "402880e55731875c015731875df50000");
+		Dept dept = (Dept) session.get(Dept.class, "402880e5573297b801573297b9f30000");
 		
 		if(dept != null && dept.getEmps() != null){
 			for(Emp emp : dept.getEmps()){
@@ -146,7 +146,7 @@ public class OneToManyTest {
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Dept dept = (Dept) session.get(Dept.class, "402880e5573192ce01573192cf620000");
+		Dept dept = (Dept) session.get(Dept.class, "402880e557329a750157329a766e0000");
 		
 		session.delete(dept);
 		
@@ -188,7 +188,7 @@ public class OneToManyTest {
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Dept dept = (Dept) session.get(Dept.class, "402880e55731bba6015731bba7220000");
+		Dept dept = (Dept) session.get(Dept.class, "402880e557329e920157329e940a0000");
 		
 		/*if(dept != null && dept.getEmps() != null){
 			for(Emp emp : dept.getEmps()){
@@ -201,6 +201,112 @@ public class OneToManyTest {
 		transaction.commit();
 		session.close();
 		sf.close();		
+	}
+	
+	@Test
+	public void testSaveWithInverseFalseInDeptCascadeAllInEmp(){
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Dept dept = new Dept();
+		dept.setName("秘书部");
+		
+		Emp emp1 = new Emp();
+		emp1.setName("Rose");
+		Emp emp2 = new Emp();
+		emp2.setName("Lily");
+		
+		Set<Emp> emps = new HashSet<Emp>();
+		emps.add(emp1);
+		emps.add(emp2);
+		dept.setEmps(emps);
+		
+		session.save(dept);
+		session.save(emp1);
+		session.save(emp2);
+		
+		transaction.commit();
+		session.close();
+		sf.close();		
+	}
+	
+	@Test
+	public void testDeleteWithInverseFalseInDeptCascadeAllInEmp(){
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Dept dept = (Dept) session.get(Dept.class, "402880e55732a22c015732a22d980000");
+		
+		session.delete(dept);
+		
+		transaction.commit();
+		session.close();
+		sf.close();			
+	}
+	
+	@Test
+	public void testSaveWithInverseTrueInDeptCascadeAllInEmp(){
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Dept dept = new Dept();
+		dept.setName("秘书部");
+		
+		Emp emp1 = new Emp();
+		emp1.setName("Lily");
+		Emp emp2 = new Emp();
+		emp2.setName("Rose");
+		
+		emp1.setDept(dept);
+		emp2.setDept(dept);
+		
+		//session.save(dept);
+		session.save(emp1);
+		session.save(emp2);
+		
+		transaction.commit();
+		session.close();
+		sf.close();		
+	}
+	
+	@Test
+	public void testDeleteWithInverseTrueInDeptCascadeAllInEmp(){
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Dept dept = (Dept) session.get(Dept.class, "402880e55732a4da015732a4dbc00001");
+		
+		if(dept != null && dept.getEmps() != null){
+			for(Emp emp : dept.getEmps()){
+				emp.setDept(null);
+			}
+		}
+		
+		session.delete(dept);
+		
+		transaction.commit();
+		session.close();
+		sf.close();		
+	}
+	
+	//无法删除，因为配置了级联删除，在删除Emp之后会删除Dept，但Dept在Emp中存在外键引用
+	@Test
+	public void testDeleteEmpWithInverseTrueInDeptCascadeAllInEmp(){
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Emp emp = (Emp) session.get(Emp.class, "402880e55732ab72015732ab73530002");
+		
+		session.delete(emp);
+		
+		transaction.commit();
+		session.close();
+		sf.close();			
 	}
 
 }

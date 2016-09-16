@@ -12,7 +12,7 @@
 		<property name="name" column="NAME" length="100"></property>
 		
 		<!-- 一对多中多的一方映射配置 -->
-		<many-to-one name="dept" column="DEPT_ID" class="Dept"></many-to-one>
+		<many-to-one name="dept" column="DEPT_ID" class="Dept" cascade="all"></many-to-one>
 	</class>
 
 </hibernate-mapping>

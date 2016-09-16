@@ -12,7 +12,7 @@
 		<property name="name" column="NAME" length="100"></property>
 		
 		<!-- 一对多中一的一方映射配置 -->
-		<set name="emps" inverse="true" cascade="all">
+		<set name="emps" inverse="true">
 			<key column="DEPT_ID"></key>
 			<one-to-many class="Emp"/>
 		</set>
