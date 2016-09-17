@@ -16,6 +16,10 @@
 			<key column="DEPT_ID"></key>
 			<one-to-many class="Emp"/>
 		</set>
+		
+		<query name="abc"><![CDATA[from Dept]]></query>
 	</class>
+	
+	<query name="def"><![CDATA[from Emp]]></query>
 
 </hibernate-mapping>

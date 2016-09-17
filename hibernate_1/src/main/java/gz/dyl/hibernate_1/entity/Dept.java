@@ -14,6 +14,15 @@ public class Dept implements Serializable {
 	private String id;
 	private String name;
 	private Set<Emp> emps;
+	
+	public Dept(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	public Dept() {
+		super();
+	}
 	public String getId() {
 		return id;
 	}
@@ -31,6 +40,10 @@ public class Dept implements Serializable {
 	}
 	public void setEmps(Set<Emp> emps) {
 		this.emps = emps;
+	}
+	@Override
+	public String toString() {
+		return "Dept [id=" + id + ", name=" + name + ", emps=" + emps + "]";
 	}
 
 }
