@@ -13,6 +13,9 @@ public class Student implements Serializable {
 	private String id;
 	private String name;
 	private Integer age;
+	
+	private Integer version;
+	
 	public String getId() {
 		return id;
 	}
@@ -30,6 +33,12 @@ public class Student implements Serializable {
 	}
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 	@Override
 	public String toString() {

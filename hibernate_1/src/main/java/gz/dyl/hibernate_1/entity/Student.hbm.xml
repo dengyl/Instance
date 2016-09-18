@@ -10,6 +10,9 @@
 			<!-- 主键生成策略 -->
 			<generator class="uuid"></generator>
 		</id>
+		
+		<version name="version" column="VERSION"></version>
+		
 		<property name="name" column="NAME" length="100"></property>
 		<property name="age" column="AGE"></property>
 	</class>

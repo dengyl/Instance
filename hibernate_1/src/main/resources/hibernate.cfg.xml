@@ -22,6 +22,14 @@
 		<!-- 生成表策略 -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		
+		<!-- 配置事务的隔离级别：
+				1-读未提交；
+				2-读已提交；
+				4-可重复读；
+				8-串行化；
+		 -->
+		<property name="hibernate.connection.isolation">4</property>
+		
 		<!-- 引入映射文件 -->
 		<mapping resource="gz/dyl/hibernate_1/entity/Student.hbm.xml"/>
 		<mapping resource="gz/dyl/hibernate_1/entity/Dept.hbm.xml"/>
